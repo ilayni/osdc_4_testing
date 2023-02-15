@@ -1,0 +1,31 @@
+name: CI
+
+on: 
+  push:
+  pull_request:
+  workflow_dispatch:
+  #run at 05:42 am each day
+  schedule: 
+    -  cron: '42 5 * * *'
+
+jobs: 
+  build_python:
+    run-on: ubuntu-latest
+    name: CI
+
+    steps: 
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: setup python 3.11
+      usues: setup-python@v2
+      with:
+        python-version: 3.11
+    - name: pip install
+      run: pip install -r requirments.txt 
+
+    - name: python ver
+      run: python -V
+
+    - name: add test
+      run: pytest .
