@@ -14,10 +14,11 @@ jobs:
    # name: CI
   test:
     strategy:
+      #if one of the jobs fails continue
       fail-fast: false
       matrix:
-        runner:  [ubuntu-latest] # , windows-latest]
-        python-version: ["3.9"] # , "3.10"]
+        runner:  [ubuntu-latest, windows-latest]
+        python-version: ["3.9", "3.10"]
     runs-on: ${{matrix.runner}}
     name: OS ${{matrix.runner}} python ${{matrix.python-version}}
 
@@ -35,5 +36,5 @@ jobs:
     - name: python ver
       run: python -V
 
-    - name: add test
+    - name: Run tests with pytest
       run: pytest -vvs .
